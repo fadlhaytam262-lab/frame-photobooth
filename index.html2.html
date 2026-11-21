@@ -2,152 +2,73 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#f5eee5">
 <title>FRAME — Korean Photobooth</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
 <style>
-:root {
-  --cream:#f5eee5;
-  --paper:#fffdf9;
-  --brown:#493525;
-  --muted:#927b68;
-  --line:#e8dccb;
-  --accent:#a77b58;
-  --shadow:0 15px 45px rgba(73,53,37,.09);
-}
+:root{--cream:#f5eee5;--paper:#fffdf9;--brown:#493525;--muted:#927b68;--line:#e8dccb;--accent:#a77b58}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{
-  margin:0;background:var(--cream);color:var(--brown);
-  font-family:'DM Sans',sans-serif;overflow-x:hidden;
-}
-button,input,select{font:inherit}
+body{margin:0;background:var(--cream);color:var(--brown);font-family:'DM Sans',sans-serif}
+button,select{font:inherit}
 button{cursor:pointer}
-header{
-  padding:20px 7%;display:flex;justify-content:space-between;
-  align-items:center;border-bottom:1px solid rgba(73,53,37,.08);
-}
+header{padding:20px 7%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e8dccb}
 .logo{font-family:'Playfair Display',serif;font-size:27px;font-weight:700;letter-spacing:3px}
 .logo span{color:var(--accent)}
-nav{display:flex;gap:25px}
-nav a{color:var(--muted);text-decoration:none;font-size:13px}
-nav a:hover{color:var(--brown)}
-.hero{
-  text-align:center;padding:75px 20px 45px;position:relative;
-}
+nav{display:flex;gap:20px}
+nav a{font-size:12px;color:var(--muted);text-decoration:none}
+.hero{text-align:center;padding:65px 15px 40px}
 .eyebrow{font-size:11px;letter-spacing:4px;color:var(--accent);font-weight:700}
-.hero h1{
-  font-family:'Playfair Display',serif;font-size:clamp(42px,8vw,76px);
-  line-height:1.08;margin:17px 0;
-}
-.hero h1 span{font-style:italic;color:var(--accent)}
-.hero p{color:var(--muted);line-height:1.8;font-size:14px}
-.hero-decoration{
-  position:absolute;border-radius:50%;filter:blur(1px);opacity:.5;z-index:-1;
-}
-.dec-one{width:100px;height:100px;background:#e4cdb5;left:9%;top:35px}
-.dec-two{width:65px;height:65px;background:#d8c2a9;right:12%;bottom:5px}
-.main{max-width:1100px;margin:auto;padding:20px}
-.studio{
-  display:grid;grid-template-columns:1.15fr .85fr;gap:25px;align-items:start;
-}
-.panel{
-  background:var(--paper);border:1px solid var(--line);
-  border-radius:25px;padding:22px;box-shadow:var(--shadow);
-}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(42px,8vw,75px);line-height:1.1;margin:17px 0}
+.hero h1 span{color:var(--accent);font-style:italic}
+.hero p{font-size:13px;line-height:1.8;color:var(--muted)}
+.main{max-width:1100px;margin:auto;padding:15px}
+.studio{display:grid;grid-template-columns:1.15fr .85fr;gap:24px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:22px;box-shadow:0 15px 45px #49352510}
 .panel-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}
 .panel-heading h2{font-family:'Playfair Display',serif;font-size:23px;margin:0}
 .small-label{font-size:10px;letter-spacing:2px;color:var(--accent);font-weight:700}
-.camera-box{
-  position:relative;width:100%;aspect-ratio:4/3;background:#2d211a;
-  border-radius:17px;overflow:hidden;display:flex;align-items:center;justify-content:center;
-}
-#video,#uploadedPreview{
-  position:absolute;width:100%;height:100%;object-fit:cover;display:none;
-}
+.camera-box{position:relative;aspect-ratio:4/3;background:#2d211a;border-radius:17px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+#video,#uploadedPreview{position:absolute;width:100%;height:100%;object-fit:cover;display:none}
 #video.mirror{transform:scaleX(-1)}
 #uploadedPreview{object-fit:contain;background:#201811}
 .camera-placeholder{text-align:center;color:#e8d7c5;padding:20px}
-.camera-placeholder .camera-icon{font-size:43px;margin-bottom:10px}
+.camera-placeholder div{font-size:43px;margin-bottom:10px}
 .camera-placeholder p{font-size:12px;line-height:1.7}
-#countdown{
-  position:absolute;z-index:5;color:white;font-size:90px;font-weight:700;
-  text-shadow:0 4px 20px #000;display:none;
-}
-.camera-status{
-  display:flex;align-items:center;gap:7px;color:var(--muted);
-  font-size:11px;margin:13px 0;
-}
+#countdown{position:absolute;z-index:5;color:white;font-size:90px;font-weight:700;text-shadow:0 4px 20px #000;display:none}
+.camera-status{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:11px;margin:13px 0}
 .status-dot{width:7px;height:7px;border-radius:50%;background:#b7a28e}
 .status-dot.active{background:#6c9a6c}
-.button-row{display:flex;flex-wrap:wrap;gap:9px}
-.btn{
-  border:1px solid var(--line);background:#fffaf4;color:var(--brown);
-  padding:11px 15px;border-radius:30px;font-size:12px;font-weight:700;
-  transition:.2s;
-}
-.btn:hover{transform:translateY(-2px);background:#f1e5d7}
+.button-row,.option-row{display:flex;flex-wrap:wrap;gap:9px}
+.btn{border:1px solid var(--line);background:#fffaf4;color:var(--brown);padding:11px 15px;border-radius:30px;font-size:12px;font-weight:700;transition:.2s}
+.btn:hover{transform:translateY(-2px)}
 .btn.primary{background:var(--brown);color:white;border-color:var(--brown)}
-.btn.primary:hover{background:#674a34}
-.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.btn:disabled{opacity:.5;cursor:not-allowed}
 .control-group{margin:20px 0}
-.control-group label,.control-title{
-  display:block;font-size:12px;font-weight:700;margin-bottom:10px;
-}
-select{
-  width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);
-  background:#fffaf4;color:var(--brown);outline:none;
-}
-.option-row{display:flex;gap:8px;flex-wrap:wrap}
-.choice{
-  border:1px solid var(--line);background:#fffaf4;color:var(--brown);
-  padding:9px 13px;border-radius:30px;font-size:11px;
-}
+.control-group label{display:block;font-size:12px;font-weight:700;margin-bottom:10px}
+select{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:#fffaf4;color:var(--brown)}
+.choice{border:1px solid var(--line);background:#fffaf4;color:var(--brown);padding:9px 13px;border-radius:30px;font-size:11px}
 .choice.selected{background:var(--brown);color:white;border-color:var(--brown)}
-.color-choice{
-  width:31px;height:31px;border-radius:50%;border:3px solid white;
-  outline:1px solid var(--line);cursor:pointer;
-}
+.color-choice{width:31px;height:31px;border-radius:50%;border:3px solid white;outline:1px solid var(--line)}
 .color-choice.selected{outline:2px solid var(--brown)}
 .divider{height:1px;background:var(--line);margin:18px 0}
 .hint{font-size:11px;color:var(--muted);line-height:1.6}
 #resultSection{display:none;margin:45px auto;max-width:650px}
 .result-heading{text-align:center;margin-bottom:20px}
 .result-heading h2{font-family:'Playfair Display',serif;font-size:32px}
-.result-paper{
-  background:#fff;padding:18px;margin:auto;max-width:360px;
-  border-radius:8px;box-shadow:var(--shadow);
-}
+.result-paper{background:white;padding:18px;margin:auto;max-width:360px;border-radius:8px;box-shadow:0 15px 45px #49352515}
 #resultCanvas{width:100%;height:auto;display:block}
 .result-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px}
-.feedback-section{padding:65px 20px;background:#eee3d6;margin-top:65px}
-.feedback-card{
-  max-width:680px;margin:auto;padding:30px;background:var(--paper);
-  border:1px solid var(--line);border-radius:25px;box-shadow:var(--shadow);
-}
+.feedback-section{padding:60px 18px;background:#eee3d6;margin-top:60px}
+.feedback-card{max-width:680px;margin:auto;padding:27px;background:var(--paper);border:1px solid var(--line);border-radius:24px}
 .feedback-label{color:var(--accent);font-size:11px;letter-spacing:3px;font-weight:700}
-.feedback-card h2{font-family:'Playfair Display',serif;font-size:32px;margin:12px 0}
+.feedback-card h2{font-family:'Playfair Display',serif;font-size:30px;margin:12px 0}
 .feedback-card p{color:var(--muted);font-size:13px;line-height:1.7}
-.feedback-card iframe{width:100%;height:570px;border:0;display:block}
-footer{text-align:center;padding:30px 15px;color:var(--muted);font-size:11px}
-footer strong{color:var(--brown)}
-@media(max-width:780px){
-  header{padding:17px 20px}
-  nav{gap:13px}
-  nav a{font-size:11px}
-  .hero{padding:55px 18px 30px}
-  .studio{grid-template-columns:1fr}
-  .main{padding:13px}
-  .panel{padding:17px}
-  .feedback-section{padding:45px 13px}
-  .feedback-card{padding:20px}
-  .feedback-card iframe{height:620px}
-}
+.feedback-card iframe{width:100%;height:600px;border:0;display:block}
+footer{text-align:center;padding:30px;color:var(--muted);font-size:11px}
+@media(max-width:780px){header{padding:17px 20px}nav{gap:12px}nav a{font-size:11px}.hero{padding:50px 15px 30px}.studio{grid-template-columns:1fr}.main{padding:12px}.panel{padding:17px}.feedback-section{padding:40px 12px}.feedback-card{padding:18px}}
 </style>
 </head>
 
@@ -162,184 +83,168 @@ footer strong{color:var(--brown)}
 </header>
 
 <section class="hero">
-  <div class="hero-decoration dec-one"></div>
-  <div class="hero-decoration dec-two"></div>
   <div class="eyebrow">A LITTLE MOMENT, A LOT OF MEMORIES</div>
   <h1>Your own little<br><span>photo studio.</span></h1>
   <p>Ambil foto lucu, pilih gaya favoritmu, dan simpan<br>kenangan dalam satu photostrip 🤎</p>
 </section>
 
 <main class="main" id="studio">
-  <div class="studio">
+<div class="studio">
 
-    <section class="panel">
-      <div class="panel-heading">
-        <h2>Photo Studio</h2>
-        <span class="small-label">01 / CAMERA</span>
-      </div>
-
-      <div class="camera-box">
-        <video id="video" autoplay playsinline muted></video>
-        <img id="uploadedPreview" alt="Foto yang diunggah">
-        <div class="camera-placeholder" id="placeholder">
-          <div class="camera-icon">📸</div>
-          <strong>Your camera is waiting</strong>
-          <p>Tekan Start Camera untuk mulai<br>atau upload foto dari perangkatmu.</p>
-        </div>
-        <div id="countdown"></div>
-      </div>
-
-      <div class="camera-status">
-        <span class="status-dot" id="statusDot"></span>
-        <span id="cameraStatus">Camera belum aktif</span>
-      </div>
-
-      <div class="button-row">
-        <button class="btn primary" id="startCamera">Start Camera</button>
-        <button class="btn" id="flipCamera">Flip Camera</button>
-        <button class="btn" id="uploadButton">Upload Photo</button>
-        <input type="file" id="uploadInput" accept="image/*" hidden>
-        <button class="btn" id="stopCamera">Stop Camera</button>
-      </div>
-
-      <p class="hint">Tips: Gunakan pencahayaan yang cukup agar hasil fotomu lebih bagus.</p>
-    </section>
-
-    <section class="panel">
-      <div class="panel-heading">
-        <h2>Customize</h2>
-        <span class="small-label">02 / STYLE</span>
-      </div>
-
-      <div class="control-group">
-        <label>Jumlah Foto</label>
-        <div class="option-row" id="photoCountOptions">
-          <button class="choice" data-count="2">2 Photos</button>
-          <button class="choice selected" data-count="3">3 Photos</button>
-          <button class="choice" data-count="4">4 Photos</button>
-        </div>
-      </div>
-
-      <div class="divider"></div>
-
-      <div class="control-group">
-        <label>Photo Filter</label>
-        <select id="filterSelect">
-          <option value="none">Original</option>
-          <option value="grayscale(1)">Black & White</option>
-          <option value="sepia(.45)">Vintage</option>
-          <option value="brightness(1.15) saturate(1.2)">Bright</option>
-          <option value="contrast(1.2) saturate(.8)">Contrast</option>
-          <option value="saturate(1.6)">Vivid</option>
-          <option value="sepia(.2) brightness(1.08) saturate(.8)">Soft Cream</option>
-        </select>
-      </div>
-
-      <div class="control-group">
-        <label>Frame Color</label>
-        <div class="option-row" id="frameColors">
-          <button class="color-choice selected" data-color="#fffdf9" style="background:#fffdf9" aria-label="White"></button>
-          <button class="color-choice" data-color="#e8d6c2" style="background:#e8d6c2" aria-label="Beige"></button>
-          <button class="color-choice" data-color="#493525" style="background:#493525" aria-label="Brown"></button>
-          <button class="color-choice" data-color="#e8bfc0" style="background:#e8bfc0" aria-label="Pink"></button>
-          <button class="color-choice" data-color="#d9e2d1" style="background:#d9e2d1" aria-label="Sage"></button>
-          <button class="color-choice" data-color="#d5dce9" style="background:#d5dce9" aria-label="Blue"></button>
-        </div>
-      </div>
-
-      <div class="control-group">
-        <label>Photostrip Layout</label>
-        <div class="option-row" id="layoutOptions">
-          <button class="choice selected" data-layout="vertical">Vertical Strip</button>
-          <button class="choice" data-layout="grid">Grid</button>
-        </div>
-      </div>
-
-      <div class="control-group">
-        <label>Countdown</label>
-        <div class="option-row" id="timerOptions">
-          <button class="choice" data-timer="0">Off</button>
-          <button class="choice selected" data-timer="3">3 Seconds</button>
-          <button class="choice" data-timer="5">5 Seconds</button>
-        </div>
-      </div>
-
-      <div class="divider"></div>
-
-      <div class="control-group">
-        <label>Photo Accessory ✨</label>
-        <select id="accessorySelect">
-          <option value="">No Accessory</option>
-          <option value="🤠">🤠 Cowboy Hat</option>
-          <option value="🐰">🐰 Bunny</option>
-          <option value="🐱">🐱 Cat</option>
-          <option value="👑">👑 Crown</option>
-          <option value="😎">😎 Sunglasses</option>
-          <option value="😇">😇 Angel</option>
-          <option value="😈">😈 Devil</option>
-          <option value="🌸">🌸 Flower</option>
-          <option value="⭐">⭐ Star</option>
-          <option value="💗">💗 Heart</option>
-          <option value="🎀">🎀 Ribbon</option>
-        </select>
-        <p class="hint">Aksesori akan ditambahkan pada bagian atas foto.</p>
-      </div>
-
-      <div class="control-group">
-        <label>Decoration</label>
-        <div class="option-row" id="decorationOptions">
-          <button class="choice selected" data-decoration="none">Clean</button>
-          <button class="choice" data-decoration="hearts">♡ Hearts</button>
-          <button class="choice" data-decoration="stars">✦ Stars</button>
-          <button class="choice" data-decoration="sparkle">✧ Sparkle</button>
-        </div>
-      </div>
-
-      <button class="btn primary" id="startSession" style="width:100%;padding:15px;margin-top:10px">
-        Start Photo Session ✦
-      </button>
-      <p class="hint" style="text-align:center">Pastikan kamera sudah aktif sebelum memulai sesi.</p>
-    </section>
+<section class="panel">
+  <div class="panel-heading">
+    <h2>Photo Studio</h2>
+    <span class="small-label">01 / CAMERA</span>
   </div>
 
-  <section id="resultSection">
-    <div class="result-heading">
-      <span class="small-label">03 / YOUR MEMORY</span>
-      <h2>Your photostrip is ready!</h2>
-      <p class="hint">Simpan hasil fotomu dan bagikan kenanganmu 🤎</p>
+  <div class="camera-box">
+    <video id="video" autoplay playsinline muted></video>
+    <img id="uploadedPreview" alt="Uploaded photo">
+    <div class="camera-placeholder" id="placeholder">
+      <div>📸</div>
+      <strong>Your camera is waiting</strong>
+      <p>Tekan Start Camera atau upload foto.</p>
     </div>
-    <div class="result-paper">
-      <canvas id="resultCanvas"></canvas>
+    <div id="countdown"></div>
+  </div>
+
+  <div class="camera-status">
+    <span class="status-dot" id="statusDot"></span>
+    <span id="cameraStatus">Camera belum aktif</span>
+  </div>
+
+  <div class="button-row">
+    <button class="btn primary" id="startCamera">Start Camera</button>
+    <button class="btn" id="flipCamera">Flip Camera</button>
+    <button class="btn" id="uploadButton">Upload Photo</button>
+    <input type="file" id="uploadInput" accept="image/*" hidden>
+    <button class="btn" id="stopCamera">Stop Camera</button>
+  </div>
+  <p class="hint">Gunakan pencahayaan yang cukup agar hasil foto lebih bagus.</p>
+</section>
+
+<section class="panel">
+  <div class="panel-heading">
+    <h2>Customize</h2>
+    <span class="small-label">02 / STYLE</span>
+  </div>
+
+  <div class="control-group">
+    <label>Jumlah Foto</label>
+    <div class="option-row" id="photoCountOptions">
+      <button class="choice" data-count="2">2 Photos</button>
+      <button class="choice selected" data-count="3">3 Photos</button>
+      <button class="choice" data-count="4">4 Photos</button>
     </div>
-    <div class="result-actions">
-      <button class="btn primary" id="downloadButton">Download Photo</button>
-      <button class="btn" id="retakeButton">Retake</button>
-      <button class="btn" id="backButton">Back to Studio</button>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="control-group">
+    <label>Photo Filter</label>
+    <select id="filterSelect">
+      <option value="none">Original</option>
+      <option value="grayscale(1)">Black & White</option>
+      <option value="sepia(.45)">Vintage</option>
+      <option value="brightness(1.15) saturate(1.2)">Bright</option>
+      <option value="contrast(1.2) saturate(.8)">Contrast</option>
+      <option value="saturate(1.6)">Vivid</option>
+      <option value="sepia(.2) brightness(1.08) saturate(.8)">Soft Cream</option>
+    </select>
+  </div>
+
+  <div class="control-group">
+    <label>Frame Color</label>
+    <div class="option-row" id="frameColors">
+      <button class="color-choice selected" data-color="#fffdf9" style="background:#fffdf9"></button>
+      <button class="color-choice" data-color="#e8d6c2" style="background:#e8d6c2"></button>
+      <button class="color-choice" data-color="#493525" style="background:#493525"></button>
+      <button class="color-choice" data-color="#e8bfc0" style="background:#e8bfc0"></button>
+      <button class="color-choice" data-color="#d9e2d1" style="background:#d9e2d1"></button>
+      <button class="color-choice" data-color="#d5dce9" style="background:#d5dce9"></button>
     </div>
-  </section>
+  </div>
+
+  <div class="control-group">
+    <label>Photostrip Layout</label>
+    <div class="option-row" id="layoutOptions">
+      <button class="choice selected" data-layout="vertical">Vertical Strip</button>
+      <button class="choice" data-layout="grid">Grid</button>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label>Countdown</label>
+    <div class="option-row" id="timerOptions">
+      <button class="choice" data-timer="0">Off</button>
+      <button class="choice selected" data-timer="3">3 Seconds</button>
+      <button class="choice" data-timer="5">5 Seconds</button>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="control-group">
+    <label>Photo Accessory ✨</label>
+    <select id="accessorySelect">
+      <option value="">No Accessory</option>
+      <option value="🤠">🤠 Cowboy Hat</option>
+      <option value="🐰">🐰 Bunny</option>
+      <option value="🐱">🐱 Cat</option>
+      <option value="👑">👑 Crown</option>
+      <option value="😎">😎 Sunglasses</option>
+      <option value="😇">😇 Angel</option>
+      <option value="😈">😈 Devil</option>
+      <option value="🌸">🌸 Flower</option>
+      <option value="⭐">⭐ Star</option>
+      <option value="💗">💗 Heart</option>
+      <option value="🎀">🎀 Ribbon</option>
+    </select>
+    <p class="hint">Aksesori ditambahkan di bagian atas foto.</p>
+  </div>
+
+  <div class="control-group">
+    <label>Decoration</label>
+    <div class="option-row" id="decorationOptions">
+      <button class="choice selected" data-decoration="none">Clean</button>
+      <button class="choice" data-decoration="hearts">♡ Hearts</button>
+      <button class="choice" data-decoration="stars">✦ Stars</button>
+      <button class="choice" data-decoration="sparkle">✧ Sparkle</button>
+    </div>
+  </div>
+
+  <button class="btn primary" id="startSession" style="width:100%;padding:15px;margin-top:10px">Start Photo Session ✦</button>
+  <p class="hint" style="text-align:center">Pastikan kamera aktif sebelum memulai sesi.</p>
+</section>
+</div>
+
+<section id="resultSection">
+  <div class="result-heading">
+    <span class="small-label">03 / YOUR MEMORY</span>
+    <h2>Your photostrip is ready!</h2>
+    <p class="hint">Simpan hasil fotomu 🤎</p>
+  </div>
+  <div class="result-paper">
+    <canvas id="resultCanvas"></canvas>
+  </div>
+  <div class="result-actions">
+    <button class="btn primary" id="downloadButton">Download Photo</button>
+    <button class="btn" id="retakeButton">Retake</button>
+    <button class="btn" id="backButton">Back to Studio</button>
+  </div>
+</section>
 </main>
 
 <section class="feedback-section" id="feedback">
   <div class="feedback-card">
     <span class="feedback-label">💌 YOUR FEEDBACK</span>
     <h2>Pesan untuk Pembuat</h2>
-    <p>
-      Punya kritik, saran, menemukan bug, atau punya ide fitur baru?
-      Kirim pesanmu di sini. Masukanmu membantu FRAME menjadi lebih baik 🤎
-    </p>
-
-    <iframe
-      src="https://tally.so/embed/rDoo6v?alignLeft=1&hideTitle=1&transparentBackground=1"
-      title="Pesan untuk Pembuat FRAME"
-      loading="lazy">
-    </iframe>
+    <p>Kritik, saran, laporan bug, atau ide fitur baru? Kirim pesanmu di sini. Masukanmu membantu FRAME menjadi lebih baik 🤎</p>
+    <iframe src="https://tally.so/embed/rDoo6v?alignLeft=1&hideTitle=1&transparentBackground=1" title="Pesan untuk Pembuat FRAME" loading="lazy"></iframe>
   </div>
 </section>
 
-<footer>
-  Made with 🤎 by <strong>FRAME Studio</strong><br>
-  Capture your little moments.
-</footer>
+<footer>Made with 🤎 by <strong>FRAME Studio</strong><br>Capture your little moments.</footer>
 
 <script>
 const video = document.getElementById('video');
@@ -364,47 +269,9 @@ let decoration = 'none';
 let capturedPhotos = [];
 let busy = false;
 
-const startCameraBtn = document.getElementById('startCamera');
-const flipCameraBtn = document.getElementById('flipCamera');
-const stopCameraBtn = document.getElementById('stopCamera');
-
 function setCameraStatus(message, active=false) {
   cameraStatus.textContent = message;
   statusDot.classList.toggle('active', active);
-}
-
-async function startCamera() {
-  stopCamera();
-
-  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-    alert('Browser tidak mendukung kamera. Buka website melalui HTTPS atau localhost.');
-    return;
-  }
-
-  try {
-    stream = await navigator.mediaDevices.getUserMedia({
-      video: {
-        facingMode,
-        width: { ideal: 1280 },
-        height: { ideal: 960 }
-      },
-      audio: false
-    });
-
-    video.srcObject = stream;
-    video.classList.toggle('mirror', facingMode === 'user');
-    video.style.display = 'block';
-    uploadedPreview.style.display = 'none';
-    placeholder.style.display = 'none';
-    uploadedImage = null;
-
-    await video.play();
-    setCameraStatus('Camera is ready', true);
-  } catch (error) {
-    console.error(error);
-    setCameraStatus('Camera gagal dibuka');
-    alert('Kamera tidak dapat diakses. Periksa izin kamera browser dan pastikan website menggunakan HTTPS.');
-  }
 }
 
 function stopCamera() {
@@ -414,20 +281,90 @@ function stopCamera() {
   }
   video.srcObject = null;
   video.style.display = 'none';
+
   if (!uploadedImage) {
     placeholder.style.display = 'block';
     setCameraStatus('Camera belum aktif');
   }
 }
 
-startCameraBtn.addEventListener('click', startCamera);
+async function startCamera() {
+  console.log('Tombol kamera diklik');
+  setCameraStatus('Meminta akses kamera...');
 
-stopCameraBtn.addEventListener('click', () => {
-  stopCamera();
-  if (uploadedImage) setCameraStatus('Menggunakan foto upload');
-});
+  if (!window.isSecureContext) {
+    alert('Website harus dibuka melalui HTTPS. Gunakan alamat Vercel yang diawali https://');
+    setCameraStatus('Website tidak menggunakan HTTPS');
+    return;
+  }
 
-flipCameraBtn.addEventListener('click', async () => {
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    alert('Browser tidak mendukung kamera. Coba buka website melalui Google Chrome.');
+    setCameraStatus('Akses kamera tidak tersedia');
+    return;
+  }
+
+  const button = document.getElementById('startCamera');
+  button.disabled = true;
+  button.textContent = 'Opening camera...';
+
+  try {
+    if (stream) {
+      stream.getTracks().forEach(track => track.stop());
+      stream = null;
+    }
+
+    const newStream = await navigator.mediaDevices.getUserMedia({
+      audio: false,
+      video: {
+        facingMode: { ideal: facingMode },
+        width: { ideal: 1280 },
+        height: { ideal: 960 }
+      }
+    });
+
+    stream = newStream;
+    video.srcObject = newStream;
+    video.classList.toggle('mirror', facingMode === 'user');
+
+    await new Promise((resolve, reject) => {
+      video.onloadedmetadata = resolve;
+      video.onerror = reject;
+      if (video.readyState >= 1) resolve();
+    });
+
+    await video.play();
+
+    video.style.display = 'block';
+    uploadedPreview.style.display = 'none';
+    placeholder.style.display = 'none';
+    uploadedImage = null;
+
+    setCameraStatus('Camera berhasil aktif!', true);
+  } catch (error) {
+    console.error('Camera error:', error);
+    setCameraStatus('Kamera gagal dibuka');
+
+    let message = error.message;
+    if (error.name === 'NotAllowedError') {
+      message = 'Izin kamera ditolak. Izinkan kamera melalui pengaturan browser.';
+    } else if (error.name === 'NotFoundError') {
+      message = 'Kamera tidak ditemukan pada perangkat.';
+    } else if (error.name === 'NotReadableError') {
+      message = 'Kamera sedang digunakan aplikasi lain.';
+    }
+
+    alert('Gagal membuka kamera.\n\n' + error.name + '\n' + message);
+  } finally {
+    button.disabled = false;
+    button.textContent = 'Start Camera';
+  }
+}
+
+document.getElementById('startCamera').addEventListener('click', startCamera);
+document.getElementById('stopCamera').addEventListener('click', stopCamera);
+
+document.getElementById('flipCamera').addEventListener('click', async () => {
   facingMode = facingMode === 'user' ? 'environment' : 'user';
   if (stream) await startCamera();
 });
@@ -449,8 +386,8 @@ document.getElementById('uploadInput').addEventListener('change', event => {
   reader.onload = () => {
     const img = new Image();
     img.onload = () => {
-      uploadedImage = img;
       stopCamera();
+      uploadedImage = img;
       uploadedPreview.src = reader.result;
       uploadedPreview.style.display = 'block';
       placeholder.style.display = 'none';
@@ -463,9 +400,9 @@ document.getElementById('uploadInput').addEventListener('change', event => {
 });
 
 function selectOption(containerId, attribute, callback) {
-  document.querySelectorAll(`#${containerId} .choice`).forEach(button => {
+  document.querySelectorAll('#' + containerId + ' .choice').forEach(button => {
     button.addEventListener('click', () => {
-      document.querySelectorAll(`#${containerId} .choice`).forEach(item => item.classList.remove('selected'));
+      document.querySelectorAll('#' + containerId + ' .choice').forEach(item => item.classList.remove('selected'));
       button.classList.add('selected');
       callback(button.dataset[attribute]);
     });
@@ -515,7 +452,6 @@ async function runCountdown() {
 function drawCoverImage(ctx, image, x, y, width, height) {
   const sourceWidth = image.videoWidth || image.naturalWidth;
   const sourceHeight = image.videoHeight || image.naturalHeight;
-
   const sourceRatio = sourceWidth / sourceHeight;
   const targetRatio = width / height;
   let sx = 0, sy = 0, sw = sourceWidth, sh = sourceHeight;
@@ -531,35 +467,138 @@ function drawCoverImage(ctx, image, x, y, width, height) {
   ctx.drawImage(image, sx, sy, sw, sh, x, y, width, height);
 }
 
-function drawAccessory(ctx, x, y, width) {
-  if (!accessory) return;
+function capturePhoto() {
+  const source = uploadedImage || video;
+
+  if (!uploadedImage && (!stream || video.readyState < 2)) {
+    throw new Error('Kamera belum siap.');
+  }
+
+  const canvas = document.createElement('canvas');
+  canvas.width = 900;
+  canvas.height = 675;
+  const ctx = canvas.getContext('2d');
+
   ctx.save();
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.font = `${Math.max(38, width * .17)}px serif`;
-  ctx.fillText(accessory, x + width / 2, y + 45);
+  ctx.filter = filter;
+
+  if (!uploadedImage && facingMode === 'user') {
+    ctx.translate(canvas.width, 0);
+    ctx.scale(-1, 1);
+  }
+
+  drawCoverImage(ctx, source, 0, 0, canvas.width, canvas.height);
   ctx.restore();
+
+  if (accessory) {
+    ctx.font = '100px serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(accessory, 450, 100);
+  }
+
+  if (decoration !== 'none') {
+    const symbols = {
+      hearts: ['♡','♥','♡','♥'],
+      stars: ['✦','✧','✦','✧'],
+      sparkle: ['✧','⋆','✦','⋆']
+    }[decoration];
+
+    ctx.fillStyle = '#fffaf0';
+    ctx.font = '65px serif';
+    ctx.fillText(symbols[0], 60, 80);
+    ctx.fillText(symbols[1], 830, 110);
+    ctx.fillText(symbols[2], 65, 620);
+    ctx.fillText(symbols[3], 830, 620);
+  }
+
+  return canvas;
 }
 
-function drawDecoration(ctx, x, y, width, height) {
-  if (decoration === 'none') return;
+async function startPhotoSession() {
+  if (busy) return;
 
-  const symbols = {
-    hearts: ['♡', '♥', '♡', '♥'],
-    stars: ['✦', '✧', '✦', '✧'],
-    sparkle: ['✧', '⋆', '✦', '⋆']
-  };
+  if (!uploadedImage && !stream) {
+    alert('Nyalakan kamera atau upload foto terlebih dahulu.');
+    return;
+  }
 
-  const items = symbols[decoration] || [];
-  ctx.save();
-  ctx.fillStyle = '#fffaf0';
-  ctx.shadowColor = 'rgba(0,0,0,.25)';
-  ctx.shadowBlur = 4;
-  ctx.textAlign = 'center';
-  ctx.font = `${Math.max(20, width * .09)}px serif`;
+  busy = true;
+  capturedPhotos = [];
+  const button = document.getElementById('startSession');
+  button.disabled = true;
+  button.textContent = 'Taking photos...';
 
-  items.forEach((symbol, index) => {
-    const positions = [
-      [x + 25, y + 30],
-      [x + width - 25, y + 55],
-      [x + 30, y + height - 25],
+  try {
+    for (let i = 0; i < photoCount; i++) {
+      await runCountdown();
+      capturedPhotos.push(capturePhoto());
+      await wait(450);
+    }
+
+    createPhotostrip();
+    document.getElementById('resultSection').style.display = 'block';
+    document.getElementById('resultSection').scrollIntoView({behavior:'smooth'});
+  } catch (error) {
+    alert(error.message || 'Gagal mengambil foto.');
+  } finally {
+    busy = false;
+    button.disabled = false;
+    button.textContent = 'Start Photo Session ✦';
+    countdownEl.style.display = 'none';
+  }
+}
+
+document.getElementById('startSession').addEventListener('click', startPhotoSession);
+
+function createPhotostrip() {
+  const count = capturedPhotos.length;
+  const gap = 18;
+  const photoWidth = 600;
+  const photoHeight = 450;
+  const footerHeight = 100;
+  const cols = layout === 'grid' ? 2 : 1;
+  const rows = Math.ceil(count / cols);
+
+  const canvasWidth = cols * photoWidth + (cols + 1) * gap;
+  const canvasHeight = rows * photoHeight + (rows + 1) * gap + footerHeight;
+
+  resultCanvas.width = canvasWidth;
+  resultCanvas.height = canvasHeight;
+
+  resultCtx.fillStyle = frameColor;
+  resultCtx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+  capturedPhotos.forEach((photo, index) => {
+    const col = index % cols;
+    const row = Math.floor(index / cols);
+    resultCtx.drawImage(photo, gap + col * (photoWidth + gap), gap + row * (photoHeight + gap), photoWidth, photoHeight);
+  });
+
+  resultCtx.fillStyle = frameColor === '#493525' ? '#fffaf4' : '#493525';
+  resultCtx.textAlign = 'center';
+  resultCtx.font = 'bold 34px Georgia';
+  resultCtx.fillText('FRAME', canvasWidth / 2, canvasHeight - 48);
+  resultCtx.font = '16px Arial';
+  resultCtx.fillText('A LITTLE MOMENT, A LOT OF MEMORIES', canvasWidth / 2, canvasHeight - 22);
+}
+
+document.getElementById('downloadButton').addEventListener('click', () => {
+  const link = document.createElement('a');
+  link.download = 'FRAME-photostrip.png';
+  link.href = resultCanvas.toDataURL('image/png');
+  link.click();
+});
+
+document.getElementById('retakeButton').addEventListener('click', () => {
+  capturedPhotos = [];
+  document.getElementById('resultSection').style.display = 'none';
+  document.getElementById('studio').scrollIntoView({behavior:'smooth'});
+});
+
+document.getElementById('backButton').addEventListener('click', () => {
+  document.getElementById('resultSection').style.display = 'none';
+  document.getElementById('studio').scrollIntoView({behavior:'smooth'});
+});
+</script>
+</body>
+</html>
