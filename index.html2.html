@@ -5,599 +5,580 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#f5eee5">
 <title>FRAME — Korean Photobooth</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
 <style>
-:root{--cream:#f5eee5;--paper:#fffdf9;--brown:#493525;--muted:#927b68;--line:#e8dccb;--accent:#a77b58}
+:root {
+  --bg:#f5eee5;
+  --paper:#fffaf4;
+  --brown:#74533d;
+  --dark:#39291f;
+  --muted:#a58b76;
+  --line:#e8d9c9;
+}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--cream);color:var(--brown);font-family:'DM Sans',sans-serif}
-button,select{font:inherit}
-button{cursor:pointer}
-header{padding:20px 7%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e8dccb}
-.logo{font-family:'Playfair Display',serif;font-size:27px;font-weight:700;letter-spacing:3px}
-.logo span{color:var(--accent)}
-nav{display:flex;gap:20px}
-nav a{font-size:12px;color:var(--muted);text-decoration:none}
-.hero{text-align:center;padding:65px 15px 40px}
-.eyebrow{font-size:11px;letter-spacing:4px;color:var(--accent);font-weight:700}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(42px,8vw,75px);line-height:1.1;margin:17px 0}
-.hero h1 span{color:var(--accent);font-style:italic}
-.hero p{font-size:13px;line-height:1.8;color:var(--muted)}
-.main{max-width:1100px;margin:auto;padding:15px}
-.studio{display:grid;grid-template-columns:1.15fr .85fr;gap:24px}
-.panel{background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:22px;box-shadow:0 15px 45px #49352510}
-.panel-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}
-.panel-heading h2{font-family:'Playfair Display',serif;font-size:23px;margin:0}
-.small-label{font-size:10px;letter-spacing:2px;color:var(--accent);font-weight:700}
-.camera-box{position:relative;aspect-ratio:4/3;background:#2d211a;border-radius:17px;overflow:hidden;display:flex;align-items:center;justify-content:center}
-#video,#uploadedPreview{position:absolute;width:100%;height:100%;object-fit:cover;display:none}
-#video.mirror{transform:scaleX(-1)}
-#uploadedPreview{object-fit:contain;background:#201811}
-.camera-placeholder{text-align:center;color:#e8d7c5;padding:20px}
-.camera-placeholder div{font-size:43px;margin-bottom:10px}
-.camera-placeholder p{font-size:12px;line-height:1.7}
-#countdown{position:absolute;z-index:5;color:white;font-size:90px;font-weight:700;text-shadow:0 4px 20px #000;display:none}
-.camera-status{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:11px;margin:13px 0}
-.status-dot{width:7px;height:7px;border-radius:50%;background:#b7a28e}
-.status-dot.active{background:#6c9a6c}
-.button-row,.option-row{display:flex;flex-wrap:wrap;gap:9px}
-.btn{border:1px solid var(--line);background:#fffaf4;color:var(--brown);padding:11px 15px;border-radius:30px;font-size:12px;font-weight:700;transition:.2s}
-.btn:hover{transform:translateY(-2px)}
-.btn.primary{background:var(--brown);color:white;border-color:var(--brown)}
-.btn:disabled{opacity:.5;cursor:not-allowed}
-.control-group{margin:20px 0}
-.control-group label{display:block;font-size:12px;font-weight:700;margin-bottom:10px}
-select{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:#fffaf4;color:var(--brown)}
-.choice{border:1px solid var(--line);background:#fffaf4;color:var(--brown);padding:9px 13px;border-radius:30px;font-size:11px}
-.choice.selected{background:var(--brown);color:white;border-color:var(--brown)}
-.color-choice{width:31px;height:31px;border-radius:50%;border:3px solid white;outline:1px solid var(--line)}
-.color-choice.selected{outline:2px solid var(--brown)}
-.divider{height:1px;background:var(--line);margin:18px 0}
-.hint{font-size:11px;color:var(--muted);line-height:1.6}
-#resultSection{display:none;margin:45px auto;max-width:650px}
-.result-heading{text-align:center;margin-bottom:20px}
-.result-heading h2{font-family:'Playfair Display',serif;font-size:32px}
-.result-paper{background:white;padding:18px;margin:auto;max-width:360px;border-radius:8px;box-shadow:0 15px 45px #49352515}
-#resultCanvas{width:100%;height:auto;display:block}
-.result-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px}
-.feedback-section{padding:60px 18px;background:#eee3d6;margin-top:60px}
-.feedback-card{max-width:680px;margin:auto;padding:27px;background:var(--paper);border:1px solid var(--line);border-radius:24px}
-.feedback-label{color:var(--accent);font-size:11px;letter-spacing:3px;font-weight:700}
-.feedback-card h2{font-family:'Playfair Display',serif;font-size:30px;margin:12px 0}
-.feedback-card p{color:var(--muted);font-size:13px;line-height:1.7}
-.feedback-card iframe{width:100%;height:600px;border:0;display:block}
-footer{text-align:center;padding:30px;color:var(--muted);font-size:11px}
-@media(max-width:780px){header{padding:17px 20px}nav{gap:12px}nav a{font-size:11px}.hero{padding:50px 15px 30px}.studio{grid-template-columns:1fr}.main{padding:12px}.panel{padding:17px}.feedback-section{padding:40px 12px}.feedback-card{padding:18px}}
+body{
+  margin:0;background:var(--bg);color:var(--dark);
+  font-family:'DM Sans',sans-serif;
+}
+button{font:inherit;cursor:pointer}
+header{
+  padding:20px 7%;display:flex;justify-content:space-between;
+  align-items:center;border-bottom:1px solid var(--line);
+}
+.logo{font-family:'Playfair Display';font-size:29px;letter-spacing:3px}
+.logo small{display:block;font:10px 'DM Sans';letter-spacing:4px;color:var(--muted)}
+.header-tag{font-size:12px;color:var(--muted)}
+main{max-width:1100px;margin:auto;padding:38px 18px 70px}
+.intro{text-align:center;margin-bottom:30px}
+.intro h1{
+  font-family:'Playfair Display';font-size:clamp(30px,5vw,48px);
+  margin:0 0 8px;
+}
+.intro p{color:var(--muted);font-size:13px}
+.studio{
+  display:grid;grid-template-columns:minmax(0,1.4fr) minmax(260px,.8fr);
+  gap:22px;align-items:start;
+}
+.panel{
+  background:var(--paper);border:1px solid var(--line);
+  border-radius:23px;padding:18px;
+  box-shadow:0 10px 35px #563b2510;
+}
+.panel-title{font-weight:800;margin-bottom:14px;font-size:14px}
+.camera-wrap{
+  position:relative;overflow:hidden;border-radius:16px;
+  background:#211a16;aspect-ratio:4/3;
+}
+#video,#overlay{
+  position:absolute;width:100%;height:100%;inset:0;
+  object-fit:cover;transform:scaleX(-1);
+}
+#overlay{pointer-events:none}
+.camera-placeholder{
+  position:absolute;inset:0;display:grid;place-content:center;
+  text-align:center;color:#fff;gap:10px;
+}
+.camera-placeholder span{font-size:42px}
+.camera-placeholder p{font-size:12px;color:#e9d9ca}
+.camera-actions{display:flex;gap:9px;margin-top:12px}
+.btn{
+  border:0;border-radius:12px;padding:12px 15px;
+  background:#eee1d3;color:var(--brown);font-weight:700;
+  font-size:12px;flex:1;
+}
+.btn.primary{background:var(--brown);color:white}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.controls{display:grid;gap:17px}
+.control-group{border-bottom:1px solid var(--line);padding-bottom:15px}
+.control-group:last-child{border:0;padding:0}
+.control-label{font-size:12px;font-weight:800;margin-bottom:10px}
+.choices{display:flex;gap:7px;flex-wrap:wrap}
+.choice{
+  padding:9px 12px;border-radius:10px;
+  border:1px solid var(--line);background:white;
+  color:var(--brown);font-size:12px;
+}
+.choice.active{background:var(--brown);color:white;border-color:var(--brown)}
+.accessory{font-size:20px;min-width:47px}
+select{
+  width:100%;padding:11px;border:1px solid var(--line);
+  border-radius:10px;background:white;color:var(--dark);
+}
+#countdown{
+  position:absolute;inset:0;display:none;place-items:center;
+  color:white;font-size:90px;font-weight:800;
+  text-shadow:0 3px 20px #0008;z-index:4;
+}
+#resultSection{margin-top:25px;display:none}
+.result-grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;margin-top:15px;
+}
+.result-grid img{width:100%;border:7px solid white;border-radius:5px}
+#stripPreview{
+  display:block;width:min(100%,350px);height:auto;
+  margin:15px auto;background:white;
+  box-shadow:0 8px 25px #0002;
+}
+.result-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+#status{font-size:11px;color:var(--muted);margin-top:10px}
+footer{text-align:center;padding:25px;color:var(--muted);font-size:11px}
+.feedback{margin-top:30px;text-align:center}
+.feedback a{color:var(--brown);font-weight:700}
+#frameCharm{
+  position:fixed;z-index:20;top:32%;right:15px;
+  width:60px;display:flex;flex-direction:column;
+  align-items:center;cursor:grab;touch-action:none;
+  user-select:none;transform-origin:top center;
+  transition:transform .65s cubic-bezier(.2,.8,.25,1);
+}
+#frameCharm.dragging{cursor:grabbing;transition:none}
+.charm-ring{width:12px;height:12px;border:2px solid #a77b58;border-radius:50%}
+.charm-string{height:65px;width:2px;background:#a77b58}
+.charm-camera{
+  width:57px;height:43px;border-radius:12px;
+  border:2px solid #a77b58;background:#fff8ed;
+  display:grid;place-items:center;font-size:26px;
+  box-shadow:0 5px 14px #49352530;
+}
+@media(max-width:750px){
+  header{padding:16px 5%}
+  main{padding:28px 13px 50px}
+  .studio{grid-template-columns:1fr}
+  .panel{padding:14px}
+  #frameCharm{right:5px;top:26%;transform:scale(.8)}
+}
 </style>
 </head>
 
 <body>
 <header>
-  <div class="logo">FR<span>A</span>ME.</div>
-  <nav>
-    <a href="#studio">Studio</a>
-    <a href="#resultSection">Hasil</a>
-    <a href="#feedback">Feedback</a>
-  </nav>
+  <div class="logo">FRAME<small>KOREAN PHOTOBOOTH</small></div>
+  <div class="header-tag">✦ Make your moment</div>
 </header>
 
-<section class="hero">
-  <div class="eyebrow">A LITTLE MOMENT, A LOT OF MEMORIES</div>
-  <h1>Your own little<br><span>photo studio.</span></h1>
-  <p>Ambil foto lucu, pilih gaya favoritmu, dan simpan<br>kenangan dalam satu photostrip 🤎</p>
-</section>
+<main>
+  <section class="intro">
+    <h1>Your little photo studio.</h1>
+    <p>Capture your favorite moments, one frame at a time ♡</p>
+  </section>
 
-<main class="main" id="studio">
-<div class="studio">
-
-<section class="panel">
-  <div class="panel-heading">
-    <h2>Photo Studio</h2>
-    <span class="small-label">01 / CAMERA</span>
-  </div>
-
-  <div class="camera-box">
-    <video id="video" autoplay playsinline muted></video>
-    <img id="uploadedPreview" alt="Uploaded photo">
-    <div class="camera-placeholder" id="placeholder">
-      <div>📸</div>
-      <strong>Your camera is waiting</strong>
-      <p>Tekan Start Camera atau upload foto.</p>
+  <section class="studio">
+    <div class="panel">
+      <div class="panel-title">✦ CAMERA STUDIO</div>
+      <div class="camera-wrap">
+        <video id="video" autoplay playsinline muted></video>
+        <canvas id="overlay"></canvas>
+        <div class="camera-placeholder" id="placeholder">
+          <span>📷</span>
+          <strong>Ready for your photos?</strong>
+          <p>Press Start Camera to begin</p>
+        </div>
+        <div id="countdown"></div>
+      </div>
+      <div class="camera-actions">
+        <button class="btn primary" id="startBtn">Start Camera</button>
+        <button class="btn" id="flipBtn">↻ Flip</button>
+      </div>
+      <div id="status">Camera belum dinyalakan.</div>
     </div>
-    <div id="countdown"></div>
-  </div>
 
-  <div class="camera-status">
-    <span class="status-dot" id="statusDot"></span>
-    <span id="cameraStatus">Camera belum aktif</span>
-  </div>
+    <div class="panel controls">
+      <div class="control-group">
+        <div class="control-label">PHOTO SESSION</div>
+        <div class="choices" id="photoChoices">
+          <button class="choice" data-count="2">2 Photos</button>
+          <button class="choice active" data-count="3">3 Photos</button>
+          <button class="choice" data-count="4">4 Photos</button>
+        </div>
+      </div>
 
-  <div class="button-row">
-    <button class="btn primary" id="startCamera">Start Camera</button>
-    <button class="btn" id="flipCamera">Flip Camera</button>
-    <button class="btn" id="uploadButton">Upload Photo</button>
-    <input type="file" id="uploadInput" accept="image/*" hidden>
-    <button class="btn" id="stopCamera">Stop Camera</button>
-  </div>
-  <p class="hint">Gunakan pencahayaan yang cukup agar hasil foto lebih bagus.</p>
-</section>
+      <div class="control-group">
+        <div class="control-label">LIVE AR ACCESSORIES</div>
+        <div class="choices" id="arChoices">
+          <button class="choice active accessory" data-ar="none">✕</button>
+          <button class="choice accessory" data-ar="cowboy">🤠</button>
+          <button class="choice accessory" data-ar="glasses">🕶️</button>
+          <button class="choice accessory" data-ar="bunny">🐰</button>
+          <button class="choice accessory" data-ar="crown">👑</button>
+          <button class="choice accessory" data-ar="cat">🐱</button>
+        </div>
+        <p style="font-size:10px;color:#a58b76">
+          Aksesori mengikuti posisi wajah melalui face tracking.
+        </p>
+      </div>
 
-<section class="panel">
-  <div class="panel-heading">
-    <h2>Customize</h2>
-    <span class="small-label">02 / STYLE</span>
-  </div>
+      <div class="control-group">
+        <div class="control-label">PHOTO FILTER</div>
+        <select id="filter">
+          <option value="none">Original</option>
+          <option value="sepia">Vintage</option>
+          <option value="grayscale">Black & White</option>
+          <option value="warm">Warm Cream</option>
+          <option value="pink">Soft Pink</option>
+        </select>
+      </div>
 
-  <div class="control-group">
-    <label>Jumlah Foto</label>
-    <div class="option-row" id="photoCountOptions">
-      <button class="choice" data-count="2">2 Photos</button>
-      <button class="choice selected" data-count="3">3 Photos</button>
-      <button class="choice" data-count="4">4 Photos</button>
+      <div class="control-group">
+        <div class="control-label">FRAME COLOR</div>
+        <div class="choices" id="frameChoices">
+          <button class="choice active" data-frame="#fffaf4">Cream</button>
+          <button class="choice" data-frame="#e8d5c1">Latte</button>
+          <button class="choice" data-frame="#ffffff">White</button>
+          <button class="choice" data-frame="#e9c9c7">Pink</button>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="control-label">PHOTO LAYOUT</div>
+        <div class="choices" id="layoutChoices">
+          <button class="choice active" data-layout="vertical">Vertical</button>
+          <button class="choice" data-layout="grid">Grid</button>
+        </div>
+      </div>
+
+      <button class="btn primary" id="captureBtn" disabled>♡ TAKE PHOTOS</button>
+      <label class="btn" style="text-align:center">
+        Upload Photo
+        <input type="file" id="upload" accept="image/*" hidden>
+      </label>
     </div>
-  </div>
+  </section>
 
-  <div class="divider"></div>
-
-  <div class="control-group">
-    <label>Photo Filter</label>
-    <select id="filterSelect">
-      <option value="none">Original</option>
-      <option value="grayscale(1)">Black & White</option>
-      <option value="sepia(.45)">Vintage</option>
-      <option value="brightness(1.15) saturate(1.2)">Bright</option>
-      <option value="contrast(1.2) saturate(.8)">Contrast</option>
-      <option value="saturate(1.6)">Vivid</option>
-      <option value="sepia(.2) brightness(1.08) saturate(.8)">Soft Cream</option>
-    </select>
-  </div>
-
-  <div class="control-group">
-    <label>Frame Color</label>
-    <div class="option-row" id="frameColors">
-      <button class="color-choice selected" data-color="#fffdf9" style="background:#fffdf9"></button>
-      <button class="color-choice" data-color="#e8d6c2" style="background:#e8d6c2"></button>
-      <button class="color-choice" data-color="#493525" style="background:#493525"></button>
-      <button class="color-choice" data-color="#e8bfc0" style="background:#e8bfc0"></button>
-      <button class="color-choice" data-color="#d9e2d1" style="background:#d9e2d1"></button>
-      <button class="color-choice" data-color="#d5dce9" style="background:#d5dce9"></button>
+  <section id="resultSection" class="panel">
+    <div class="panel-title">♡ YOUR PHOTO RESULTS</div>
+    <canvas id="stripPreview"></canvas>
+    <div class="result-actions">
+      <button class="btn primary" id="downloadBtn">Download Photostrip</button>
+      <button class="btn" id="retakeBtn">Take Again</button>
     </div>
-  </div>
+  </section>
 
-  <div class="control-group">
-    <label>Photostrip Layout</label>
-    <div class="option-row" id="layoutOptions">
-      <button class="choice selected" data-layout="vertical">Vertical Strip</button>
-      <button class="choice" data-layout="grid">Grid</button>
-    </div>
-  </div>
-
-  <div class="control-group">
-    <label>Countdown</label>
-    <div class="option-row" id="timerOptions">
-      <button class="choice" data-timer="0">Off</button>
-      <button class="choice selected" data-timer="3">3 Seconds</button>
-      <button class="choice" data-timer="5">5 Seconds</button>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <div class="control-group">
-    <label>Photo Accessory ✨</label>
-    <select id="accessorySelect">
-      <option value="">No Accessory</option>
-      <option value="🤠">🤠 Cowboy Hat</option>
-      <option value="🐰">🐰 Bunny</option>
-      <option value="🐱">🐱 Cat</option>
-      <option value="👑">👑 Crown</option>
-      <option value="😎">😎 Sunglasses</option>
-      <option value="😇">😇 Angel</option>
-      <option value="😈">😈 Devil</option>
-      <option value="🌸">🌸 Flower</option>
-      <option value="⭐">⭐ Star</option>
-      <option value="💗">💗 Heart</option>
-      <option value="🎀">🎀 Ribbon</option>
-    </select>
-    <p class="hint">Aksesori ditambahkan di bagian atas foto.</p>
-  </div>
-
-  <div class="control-group">
-    <label>Decoration</label>
-    <div class="option-row" id="decorationOptions">
-      <button class="choice selected" data-decoration="none">Clean</button>
-      <button class="choice" data-decoration="hearts">♡ Hearts</button>
-      <button class="choice" data-decoration="stars">✦ Stars</button>
-      <button class="choice" data-decoration="sparkle">✧ Sparkle</button>
-    </div>
-  </div>
-
-  <button class="btn primary" id="startSession" style="width:100%;padding:15px;margin-top:10px">Start Photo Session ✦</button>
-  <p class="hint" style="text-align:center">Pastikan kamera aktif sebelum memulai sesi.</p>
-</section>
-</div>
-
-<section id="resultSection">
-  <div class="result-heading">
-    <span class="small-label">03 / YOUR MEMORY</span>
-    <h2>Your photostrip is ready!</h2>
-    <p class="hint">Simpan hasil fotomu 🤎</p>
-  </div>
-  <div class="result-paper">
-    <canvas id="resultCanvas"></canvas>
-  </div>
-  <div class="result-actions">
-    <button class="btn primary" id="downloadButton">Download Photo</button>
-    <button class="btn" id="retakeButton">Retake</button>
-    <button class="btn" id="backButton">Back to Studio</button>
-  </div>
-</section>
+  <section class="feedback">
+    <p>Have a suggestion for FRAME?</p>
+    <a href="https://tally.so/r/rDoo6v" target="_blank">Send a message to the creator ↗</a>
+  </section>
 </main>
 
-<section class="feedback-section" id="feedback">
-  <div class="feedback-card">
-    <span class="feedback-label">💌 YOUR FEEDBACK</span>
-    <h2>Pesan untuk Pembuat</h2>
-    <p>Kritik, saran, laporan bug, atau ide fitur baru? Kirim pesanmu di sini. Masukanmu membantu FRAME menjadi lebih baik 🤎</p>
-    <iframe src="https://tally.so/embed/rDoo6v?alignLeft=1&hideTitle=1&transparentBackground=1" title="Pesan untuk Pembuat FRAME" loading="lazy"></iframe>
-  </div>
-</section>
+<footer>Made with ♡ by FRAME Studio</footer>
 
-<footer>Made with 🤎 by <strong>FRAME Studio</strong><br>Capture your little moments.</footer>
+<div id="frameCharm" aria-label="Gantungan kamera yang bisa ditarik">
+  <div class="charm-ring"></div>
+  <div class="charm-string"></div>
+  <div class="charm-camera">📷</div>
+</div>
 
-<script>
+<script type="module">
+import { FaceLandmarker, FilesetResolver }
+from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14";
+
 const video = document.getElementById('video');
+const overlay = document.getElementById('overlay');
+const ctx = overlay.getContext('2d');
 const placeholder = document.getElementById('placeholder');
-const uploadedPreview = document.getElementById('uploadedPreview');
-const countdownEl = document.getElementById('countdown');
-const cameraStatus = document.getElementById('cameraStatus');
-const statusDot = document.getElementById('statusDot');
-const resultCanvas = document.getElementById('resultCanvas');
-const resultCtx = resultCanvas.getContext('2d');
+const statusText = document.getElementById('status');
 
 let stream = null;
-let facingMode = 'user';
-let uploadedImage = null;
+let facing = 'user';
+let faceLandmarker = null;
+let cameraOn = false;
 let photoCount = 3;
-let timerSeconds = 3;
-let frameColor = '#fffdf9';
+let selectedAR = 'none';
+let frameColor = '#fffaf4';
 let layout = 'vertical';
-let filter = 'none';
-let accessory = '';
-let decoration = 'none';
-let capturedPhotos = [];
-let busy = false;
+let photos = [];
+let uploadedImage = null;
+let lastVideoTime = -1;
 
-function setCameraStatus(message, active=false) {
-  cameraStatus.textContent = message;
-  statusDot.classList.toggle('active', active);
+const $ = id => document.getElementById(id);
+
+async function loadFaceTracking(){
+  try{
+    const vision = await FilesetResolver.forVisionTasks(
+      "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm"
+    );
+    faceLandmarker = await FaceLandmarker.createFromOptions(vision,{
+      baseOptions:{
+        modelAssetPath:
+        "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",
+        delegate:"GPU"
+      },
+      runningMode:"VIDEO",
+      numFaces:1
+    });
+    statusText.textContent = 'Face tracking siap! ✨';
+  }catch(e){
+    statusText.textContent = 'AR tidak tersedia. Coba refresh halaman.';
+    console.error(e);
+  }
 }
 
-function stopCamera() {
-  if (stream) {
-    stream.getTracks().forEach(track => track.stop());
-    stream = null;
-  }
-  video.srcObject = null;
-  video.style.display = 'none';
-
-  if (!uploadedImage) {
-    placeholder.style.display = 'block';
-    setCameraStatus('Camera belum aktif');
-  }
-}
-
-async function startCamera() {
-  console.log('Tombol kamera diklik');
-  setCameraStatus('Meminta akses kamera...');
-
-  if (!window.isSecureContext) {
-    alert('Website harus dibuka melalui HTTPS. Gunakan alamat Vercel yang diawali https://');
-    setCameraStatus('Website tidak menggunakan HTTPS');
-    return;
-  }
-
-  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-    alert('Browser tidak mendukung kamera. Coba buka website melalui Google Chrome.');
-    setCameraStatus('Akses kamera tidak tersedia');
-    return;
-  }
-
-  const button = document.getElementById('startCamera');
-  button.disabled = true;
-  button.textContent = 'Opening camera...';
-
-  try {
-    if (stream) {
-      stream.getTracks().forEach(track => track.stop());
-      stream = null;
-    }
-
-    const newStream = await navigator.mediaDevices.getUserMedia({
-      audio: false,
-      video: {
-        facingMode: { ideal: facingMode },
-        width: { ideal: 1280 },
-        height: { ideal: 960 }
+async function startCamera(){
+  try{
+    if(stream) stream.getTracks().forEach(t=>t.stop());
+    stream = await navigator.mediaDevices.getUserMedia({
+      audio:false,
+      video:{
+        facingMode:facing,
+        width:{ideal:1280},
+        height:{ideal:960}
       }
     });
-
-    stream = newStream;
-    video.srcObject = newStream;
-    video.classList.toggle('mirror', facingMode === 'user');
-
-    await new Promise((resolve, reject) => {
-      video.onloadedmetadata = resolve;
-      video.onerror = reject;
-      if (video.readyState >= 1) resolve();
-    });
-
+    video.srcObject = stream;
     await video.play();
-
-    video.style.display = 'block';
-    uploadedPreview.style.display = 'none';
+    cameraOn = true;
     placeholder.style.display = 'none';
-    uploadedImage = null;
-
-    setCameraStatus('Camera berhasil aktif!', true);
-  } catch (error) {
-    console.error('Camera error:', error);
-    setCameraStatus('Kamera gagal dibuka');
-
-    let message = error.message;
-    if (error.name === 'NotAllowedError') {
-      message = 'Izin kamera ditolak. Izinkan kamera melalui pengaturan browser.';
-    } else if (error.name === 'NotFoundError') {
-      message = 'Kamera tidak ditemukan pada perangkat.';
-    } else if (error.name === 'NotReadableError') {
-      message = 'Kamera sedang digunakan aplikasi lain.';
-    }
-
-    alert('Gagal membuka kamera.\n\n' + error.name + '\n' + message);
-  } finally {
-    button.disabled = false;
-    button.textContent = 'Start Camera';
+    $('captureBtn').disabled = false;
+    $('startBtn').textContent = 'Stop Camera';
+    resizeCanvas();
+    statusText.textContent = 'Camera aktif. Siap berfoto!';
+    if(!faceLandmarker) await loadFaceTracking();
+    requestAnimationFrame(drawPreview);
+  }catch(e){
+    statusText.textContent = 'Kamera gagal dibuka. Izinkan akses kamera dan gunakan HTTPS.';
+    console.error(e);
   }
 }
 
-document.getElementById('startCamera').addEventListener('click', startCamera);
-document.getElementById('stopCamera').addEventListener('click', stopCamera);
+function stopCamera(){
+  if(stream) stream.getTracks().forEach(t=>t.stop());
+  stream = null;
+  cameraOn = false;
+  video.srcObject = null;
+  placeholder.style.display = 'grid';
+  $('startBtn').textContent = 'Start Camera';
+  $('captureBtn').disabled = true;
+  ctx.clearRect(0,0,overlay.width,overlay.height);
+  statusText.textContent = 'Camera dimatikan.';
+}
 
-document.getElementById('flipCamera').addEventListener('click', async () => {
-  facingMode = facingMode === 'user' ? 'environment' : 'user';
-  if (stream) await startCamera();
-});
+$('startBtn').onclick = () => cameraOn ? stopCamera() : startCamera();
 
-document.getElementById('uploadButton').addEventListener('click', () => {
-  document.getElementById('uploadInput').click();
-});
+$('flipBtn').onclick = async () => {
+  facing = facing === 'user' ? 'environment' : 'user';
+  if(cameraOn) await startCamera();
+};
 
-document.getElementById('uploadInput').addEventListener('change', event => {
-  const file = event.target.files[0];
-  if (!file) return;
+function resizeCanvas(){
+  if(!video.videoWidth) return;
+  overlay.width = video.videoWidth;
+  overlay.height = video.videoHeight;
+}
 
-  if (!file.type.startsWith('image/')) {
-    alert('Pilih file gambar ya.');
-    return;
+function point(lm,index,w,h){
+  return {x:(1-lm[index].x)*w,y:lm[index].y*h};
+}
+
+function drawAccessory(c,lm,w,h){
+  if(selectedAR === 'none' || !lm) return;
+
+  const left = point(lm,33,w,h);
+  const right = point(lm,263,w,h);
+  const forehead = point(lm,10,w,h);
+  const nose = point(lm,1,w,h);
+  const eyeDistance = Math.hypot(right.x-left.x,right.y-left.y);
+  const centerX = (left.x+right.x)/2;
+  const angle = Math.atan2(right.y-left.y,right.x-left.x);
+
+  c.save();
+  c.translate(centerX,forehead.y);
+  c.rotate(angle);
+  c.textAlign = 'center';
+  c.textBaseline = 'middle';
+
+  if(selectedAR === 'glasses'){
+    c.font = `${Math.max(35,eyeDistance*.8)}px serif`;
+    c.fillText('🕶️',0,(nose.y-forehead.y)*.12);
+  }else{
+    let emoji = '🤠';
+    let size = eyeDistance*1.35;
+    let offset = -size*.45;
+    if(selectedAR==='bunny'){emoji='🐰';offset=-size*.55}
+    if(selectedAR==='crown'){emoji='👑';offset=-size*.45}
+    if(selectedAR==='cat'){emoji='🐱';offset=-size*.45}
+    c.font = `${size}px serif`;
+    c.fillText(emoji,0,offset);
   }
+  c.restore();
+}
 
-  const reader = new FileReader();
-  reader.onload = () => {
-    const img = new Image();
-    img.onload = () => {
-      stopCamera();
-      uploadedImage = img;
-      uploadedPreview.src = reader.result;
-      uploadedPreview.style.display = 'block';
-      placeholder.style.display = 'none';
-      setCameraStatus('Menggunakan foto upload', true);
+function drawPreview(){
+  if(!cameraOn || !video.videoWidth) return;
+  if(overlay.width!==video.videoWidth || overlay.height!==video.videoHeight) resizeCanvas();
+
+  ctx.clearRect(0,0,overlay.width,overlay.height);
+
+  if(faceLandmarker && video.currentTime!==lastVideoTime){
+    lastVideoTime=video.currentTime;
+    try{
+      const result=faceLandmarker.detectForVideo(video,performance.now());
+      if(result.faceLandmarks?.length){
+        drawAccessory(ctx,result.faceLandmarks[0],overlay.width,overlay.height);
+      }
+    }catch(e){console.warn(e)}
+  }
+  requestAnimationFrame(drawPreview);
+}
+
+function getFilter(){
+  const f=$('filter').value;
+  return {
+    none:'none',
+    sepia:'sepia(0.65)',
+    grayscale:'grayscale(1)',
+    warm:'sepia(.2) saturate(1.3)',
+    pink:'sepia(.15) saturate(1.4) hue-rotate(320deg)'
+  }[f];
+}
+
+function renderPhoto(){
+  const w=video.videoWidth,h=video.videoHeight;
+  const canvas=document.createElement('canvas');
+  canvas.width=w;canvas.height=h;
+  const c=canvas.getContext('2d');
+
+  c.save();
+  c.translate(w,0);
+  c.scale(-1,1);
+  c.filter=getFilter();
+  c.drawImage(video,0,0,w,h);
+  c.restore();
+
+  if(faceLandmarker){
+    try{
+      const result=faceLandmarker.detectForVideo(video,performance.now());
+      if(result.faceLandmarks?.length){
+        drawAccessory(c,result.faceLandmarks[0],w,h);
+      }
+    }catch(e){}
+  }
+  return canvas.toDataURL('image/jpeg',.92);
+}
+
+function countdown(seconds){
+  return new Promise(resolve=>{
+    let n=seconds;
+    const el=$('countdown');
+    el.style.display='grid';
+    el.textContent=n;
+    const timer=setInterval(()=>{
+      n--;
+      if(n>0) el.textContent=n;
+      else{
+        clearInterval(timer);
+        el.style.display='none';
+        resolve();
+      }
+    },1000);
+  });
+}
+
+async function takePhotos(){
+  if(!cameraOn) return;
+  $('captureBtn').disabled=true;
+  photos=[];
+  for(let i=0;i<photoCount;i++){
+    await countdown(3);
+    photos.push(renderPhoto());
+    statusText.textContent=`Foto ${i+1} dari ${photoCount} selesai ♡`;
+    await new Promise(r=>setTimeout(r,450));
+  }
+  createPhotostrip();
+  $('captureBtn').disabled=false;
+}
+$('captureBtn').onclick=takePhotos;
+
+function createPhotostrip(){
+  const images=photos.map(src=>{
+    const img=new Image();img.src=src;return img;
+  });
+  Promise.all(images.map(img=>new Promise(resolve=>img.onload=resolve)))
+  .then(()=>{
+    const strip=$('stripPreview');
+    const c=strip.getContext('2d');
+    const margin=24,gap=12;
+    const photoW=500,photoH=375;
+    const vertical=layout==='vertical';
+    strip.width=vertical?photoW+margin*2:photoW*2+margin*2+gap;
+    strip.height=vertical?
+      photoCount*(photoH+gap)+margin*2+45:
+      Math.ceil(photoCount/2)*(photoH+gap)+margin*2+45;
+    c.fillStyle=frameColor;c.fillRect(0,0,strip.width,strip.height);
+    images.forEach((img,i)=>{
+      const x=vertical?margin:margin+(i%2)*(photoW+gap);
+      const y=vertical?margin+i*(photoH+gap):margin+Math.floor(i/2)*(photoH+gap);
+      c.fillStyle='white';c.fillRect(x-5,y-5,photoW+10,photoH+10);
+      c.drawImage(img,x,y,photoW,photoH);
+    });
+    c.fillStyle='#74533d';
+    c.textAlign='center';c.font='bold 20px sans-serif';
+    c.fillText('FRAME  ♡',strip.width/2,strip.height-16);
+    $('resultSection').style.display='block';
+    $('resultSection').scrollIntoView({behavior:'smooth'});
+  });
+}
+
+$('downloadBtn').onclick=()=>{
+  const a=document.createElement('a');
+  a.href=$('stripPreview').toDataURL('image/png');
+  a.download='FRAME-photostrip.png';
+  a.click();
+};
+
+$('retakeBtn').onclick=()=>{
+  $('resultSection').style.display='none';
+  photos=[];
+};
+
+$('upload').onchange=e=>{
+  const file=e.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    const img=new Image();
+    img.onload=()=>{
+      const canvas=document.createElement('canvas');
+      canvas.width=img.width;canvas.height=img.height;
+      const c=canvas.getContext('2d');
+      c.filter=getFilter();
+      c.drawImage(img,0,0);
+      photos=[canvas.toDataURL('image/jpeg',.92)];
+      photoCount=1;
+      layout='vertical';
+      createPhotostrip();
     };
-    img.src = reader.result;
+    img.src=reader.result;
   };
   reader.readAsDataURL(file);
-  event.target.value = '';
-});
+};
 
-function selectOption(containerId, attribute, callback) {
-  document.querySelectorAll('#' + containerId + ' .choice').forEach(button => {
-    button.addEventListener('click', () => {
-      document.querySelectorAll('#' + containerId + ' .choice').forEach(item => item.classList.remove('selected'));
-      button.classList.add('selected');
-      callback(button.dataset[attribute]);
-    });
+function activateChoices(container,callback){
+  $(container).querySelectorAll('.choice').forEach(btn=>{
+    btn.onclick=()=>{
+      $(container).querySelectorAll('.choice').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      callback(btn);
+    };
   });
 }
+activateChoices('photoChoices',b=>photoCount=Number(b.dataset.count));
+activateChoices('arChoices',b=>selectedAR=b.dataset.ar);
+activateChoices('frameChoices',b=>frameColor=b.dataset.frame);
+activateChoices('layoutChoices',b=>layout=b.dataset.layout);
 
-selectOption('photoCountOptions', 'count', value => photoCount = Number(value));
-selectOption('layoutOptions', 'layout', value => layout = value);
-selectOption('timerOptions', 'timer', value => timerSeconds = Number(value));
-selectOption('decorationOptions', 'decoration', value => decoration = value);
+// Interactive hanging camera charm
+const charm=$('frameCharm');
+let dragging=false,startX=0,startY=0,offsetX=0,offsetY=0;
 
-document.querySelectorAll('.color-choice').forEach(button => {
-  button.addEventListener('click', () => {
-    document.querySelectorAll('.color-choice').forEach(item => item.classList.remove('selected'));
-    button.classList.add('selected');
-    frameColor = button.dataset.color;
-  });
+charm.addEventListener('pointerdown',e=>{
+  dragging=true;
+  startX=e.clientX-offsetX;
+  startY=e.clientY-offsetY;
+  charm.classList.add('dragging');
+  charm.setPointerCapture(e.pointerId);
 });
-
-document.getElementById('filterSelect').addEventListener('change', event => {
-  filter = event.target.value;
-  video.style.filter = filter;
-  uploadedPreview.style.filter = filter;
+charm.addEventListener('pointermove',e=>{
+  if(!dragging)return;
+  offsetX=e.clientX-startX;
+  offsetY=e.clientY-startY;
+  const angle=Math.max(-35,Math.min(35,offsetX*.5));
+  charm.style.transform=`translate(${offsetX}px,${offsetY}px) rotate(${angle}deg)`;
 });
-
-document.getElementById('accessorySelect').addEventListener('change', event => {
-  accessory = event.target.value;
-});
-
-function wait(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+function releaseCharm(){
+  if(!dragging)return;
+  dragging=false;
+  charm.classList.remove('dragging');
+  charm.style.transform='';
+  offsetX=0;offsetY=0;
 }
+charm.addEventListener('pointerup',releaseCharm);
+charm.addEventListener('pointercancel',releaseCharm);
 
-async function runCountdown() {
-  if (timerSeconds === 0) return;
-
-  countdownEl.style.display = 'block';
-  for (let i = timerSeconds; i > 0; i--) {
-    countdownEl.textContent = i;
-    await wait(1000);
-  }
-  countdownEl.textContent = '✦';
-  await wait(350);
-  countdownEl.style.display = 'none';
-}
-
-function drawCoverImage(ctx, image, x, y, width, height) {
-  const sourceWidth = image.videoWidth || image.naturalWidth;
-  const sourceHeight = image.videoHeight || image.naturalHeight;
-  const sourceRatio = sourceWidth / sourceHeight;
-  const targetRatio = width / height;
-  let sx = 0, sy = 0, sw = sourceWidth, sh = sourceHeight;
-
-  if (sourceRatio > targetRatio) {
-    sw = sourceHeight * targetRatio;
-    sx = (sourceWidth - sw) / 2;
-  } else {
-    sh = sourceWidth / targetRatio;
-    sy = (sourceHeight - sh) / 2;
-  }
-
-  ctx.drawImage(image, sx, sy, sw, sh, x, y, width, height);
-}
-
-function capturePhoto() {
-  const source = uploadedImage || video;
-
-  if (!uploadedImage && (!stream || video.readyState < 2)) {
-    throw new Error('Kamera belum siap.');
-  }
-
-  const canvas = document.createElement('canvas');
-  canvas.width = 900;
-  canvas.height = 675;
-  const ctx = canvas.getContext('2d');
-
-  ctx.save();
-  ctx.filter = filter;
-
-  if (!uploadedImage && facingMode === 'user') {
-    ctx.translate(canvas.width, 0);
-    ctx.scale(-1, 1);
-  }
-
-  drawCoverImage(ctx, source, 0, 0, canvas.width, canvas.height);
-  ctx.restore();
-
-  if (accessory) {
-    ctx.font = '100px serif';
-    ctx.textAlign = 'center';
-    ctx.fillText(accessory, 450, 100);
-  }
-
-  if (decoration !== 'none') {
-    const symbols = {
-      hearts: ['♡','♥','♡','♥'],
-      stars: ['✦','✧','✦','✧'],
-      sparkle: ['✧','⋆','✦','⋆']
-    }[decoration];
-
-    ctx.fillStyle = '#fffaf0';
-    ctx.font = '65px serif';
-    ctx.fillText(symbols[0], 60, 80);
-    ctx.fillText(symbols[1], 830, 110);
-    ctx.fillText(symbols[2], 65, 620);
-    ctx.fillText(symbols[3], 830, 620);
-  }
-
-  return canvas;
-}
-
-async function startPhotoSession() {
-  if (busy) return;
-
-  if (!uploadedImage && !stream) {
-    alert('Nyalakan kamera atau upload foto terlebih dahulu.');
-    return;
-  }
-
-  busy = true;
-  capturedPhotos = [];
-  const button = document.getElementById('startSession');
-  button.disabled = true;
-  button.textContent = 'Taking photos...';
-
-  try {
-    for (let i = 0; i < photoCount; i++) {
-      await runCountdown();
-      capturedPhotos.push(capturePhoto());
-      await wait(450);
-    }
-
-    createPhotostrip();
-    document.getElementById('resultSection').style.display = 'block';
-    document.getElementById('resultSection').scrollIntoView({behavior:'smooth'});
-  } catch (error) {
-    alert(error.message || 'Gagal mengambil foto.');
-  } finally {
-    busy = false;
-    button.disabled = false;
-    button.textContent = 'Start Photo Session ✦';
-    countdownEl.style.display = 'none';
-  }
-}
-
-document.getElementById('startSession').addEventListener('click', startPhotoSession);
-
-function createPhotostrip() {
-  const count = capturedPhotos.length;
-  const gap = 18;
-  const photoWidth = 600;
-  const photoHeight = 450;
-  const footerHeight = 100;
-  const cols = layout === 'grid' ? 2 : 1;
-  const rows = Math.ceil(count / cols);
-
-  const canvasWidth = cols * photoWidth + (cols + 1) * gap;
-  const canvasHeight = rows * photoHeight + (rows + 1) * gap + footerHeight;
-
-  resultCanvas.width = canvasWidth;
-  resultCanvas.height = canvasHeight;
-
-  resultCtx.fillStyle = frameColor;
-  resultCtx.fillRect(0, 0, canvasWidth, canvasHeight);
-
-  capturedPhotos.forEach((photo, index) => {
-    const col = index % cols;
-    const row = Math.floor(index / cols);
-    resultCtx.drawImage(photo, gap + col * (photoWidth + gap), gap + row * (photoHeight + gap), photoWidth, photoHeight);
-  });
-
-  resultCtx.fillStyle = frameColor === '#493525' ? '#fffaf4' : '#493525';
-  resultCtx.textAlign = 'center';
-  resultCtx.font = 'bold 34px Georgia';
-  resultCtx.fillText('FRAME', canvasWidth / 2, canvasHeight - 48);
-  resultCtx.font = '16px Arial';
-  resultCtx.fillText('A LITTLE MOMENT, A LOT OF MEMORIES', canvasWidth / 2, canvasHeight - 22);
-}
-
-document.getElementById('downloadButton').addEventListener('click', () => {
-  const link = document.createElement('a');
-  link.download = 'FRAME-photostrip.png';
-  link.href = resultCanvas.toDataURL('image/png');
-  link.click();
-});
-
-document.getElementById('retakeButton').addEventListener('click', () => {
-  capturedPhotos = [];
-  document.getElementById('resultSection').style.display = 'none';
-  document.getElementById('studio').scrollIntoView({behavior:'smooth'});
-});
-
-document.getElementById('backButton').addEventListener('click', () => {
-  document.getElementById('resultSection').style.display = 'none';
-  document.getElementById('studio').scrollIntoView({behavior:'smooth'});
+window.addEventListener('beforeunload',()=>{
+  if(stream)stream.getTracks().forEach(t=>t.stop());
 });
 </script>
 </body>
